@@ -53,7 +53,7 @@ function Dashboard() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) =>
-        setStudents(res.data.students || res.data)
+        setStudents(res.data.data || [])
       )
       .catch((err) => console.error(err));
 
@@ -61,7 +61,7 @@ function Dashboard() {
       .get("http://127.0.0.1:8000/dashboard", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setChartData(res.data))
+      .then((res) => setChartData(res.data.data || []))
       .catch((err) => console.error(err));
   }, [token]);
 
@@ -86,7 +86,6 @@ function Dashboard() {
   const handleViewCharts = () => {
     navigate("/charts", {
       state: {
-        // ✅ THIS IS THE KEY FIX
         filteredStudents: displayedStudents,
 
         // Optional extras (useful for showing filters in charts page)

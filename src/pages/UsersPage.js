@@ -36,7 +36,7 @@ function UsersPage() {
       const res = await axios.get("http://127.0.0.1:8000/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setUsers(res.data);
+      setUsers(res.data.data || [])
     } catch (err) {
       console.error(err);
     }
