@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
+import config from "../config";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
@@ -49,7 +50,7 @@ function Dashboard() {
     if (!token) return;
 
     axios
-      .get("http://127.0.0.1:8000/students", {
+      .get(`${config.BASE_URL}${config.API.STUDENTS}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) =>
@@ -58,7 +59,7 @@ function Dashboard() {
       .catch((err) => console.error(err));
 
     axios
-      .get("http://127.0.0.1:8000/dashboard", {
+      .get(`${config.BASE_URL}${config.API.DASHBOARD}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setChartData(res.data.data || []))

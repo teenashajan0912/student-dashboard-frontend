@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import config from "../config";
 import {
   Box,
   Tabs,
@@ -37,7 +38,7 @@ function LoginPage() {
     setSuccess("");
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/auth/login", {
+      const res = await axios.post(`${config.BASE_URL}${config.API.LOGIN}`, {
         username,
         password
       });
@@ -70,7 +71,7 @@ function LoginPage() {
     setSuccess("");
 
     try {
-      await axios.post("http://127.0.0.1:8000/auth/signup", {
+      await axios.post(`${config.BASE_URL}${config.API.SIGNUP}`, {
         username,
         email,
         password

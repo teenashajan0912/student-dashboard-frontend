@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import config from "../config";
 import {
   Box,
   Typography,
@@ -33,7 +34,7 @@ function UsersPage() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:8000/users", {
+      const res = await axios.get(`${config.BASE_URL}${config.API.USERS}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data.data || [])
@@ -45,7 +46,7 @@ function UsersPage() {
   const updateRole = async (id, newRole) => {
     try {
       await axios.put(
-        `http://127.0.0.1:8000/users/${id}/role?new_role=${newRole}`,
+        `${config.BASE_URL}${config.API.USERS}/${id}/role?new_role=${newRole}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -153,7 +154,7 @@ function UsersPage() {
                           size="small"
                           onClick={async () => {
                             await axios.delete(
-                              `http://127.0.0.1:8000/users/${u.id}`,
+                              `${config.BASE_URL}${config.API.USERS}/${u.id}`,
                               { headers: { Authorization: `Bearer ${token}` } }
                             );
                             fetchUsers();
