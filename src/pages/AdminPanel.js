@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import config from "../config";
 
 function AdminPanel() {
   const [users, setUsers] = useState([]);
@@ -12,7 +13,7 @@ function AdminPanel() {
   }, []);
 
   const fetchUsers = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/users/", {
+    const res = await axios.get(`${config.BASE_URL}${config.API.USERS}/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -23,7 +24,7 @@ function AdminPanel() {
 
   const updateRole = async (id, newRole) => {
     await axios.put(
-      `http://127.0.0.1:8000/users/${id}/role`,
+      `${config.BASE_URL}${config.API.USERS}/${id}/role`,
       null,
       {
         params: { new_role: newRole },
@@ -37,7 +38,7 @@ function AdminPanel() {
   };
 
   const deleteUser = async (id) => {
-    await axios.delete(`http://127.0.0.1:8000/users/${id}`, {
+    await axios.delete(`${config.BASE_URL}${config.API.USERS}/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
